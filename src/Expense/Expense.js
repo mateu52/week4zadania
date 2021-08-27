@@ -1,21 +1,21 @@
 import React from 'react';
 
-const expens={
+const Expens={
     name:"",
     amount:"",
-    category:"";
+    category:""
 }
 const income={
     name:"",
     amount:"",
-    category:"";
+    category:""
 }
 
-const function Expension(){
+function Expense(){
 
     return(
-
+        <></>
     );
 }
 
-export default Expension;
+export default Expense;

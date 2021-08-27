@@ -1,9 +1,14 @@
-import React from 'react';
+import React ,{useState} from 'react';
 
-const fuction Bild(){
-    function Price(({value})=> {value}*)
+function Bild(){
+    const [val, setVal] = useState("-");
+    const sum=val; 
+    const setValue=()=><div>
+        <h1>hello</h1>
+    </div>
+
     return(
-        <form>
+        <div>
             <input type="number" name="netto" placeholder="netto..."></input>
             <select>
                 <option value="5">5%</option>
@@ -11,8 +16,9 @@ const fuction Bild(){
                 <option value="15">15%</option>
                 <option value="20">20%</option>
             </select>
-            <button>Przelicz</button>
-        </form>
+            <button onClick={ setValue }>Przelicz</button>
+            <h1>{setValue}</h1>
+        </div>
     );
 }
 

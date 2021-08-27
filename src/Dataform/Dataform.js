@@ -1,6 +1,6 @@
 import React from 'react';
 
-const function Dataform(){
+function Dataform(){
 
     return(
         <form>
@@ -14,4 +14,4 @@ const function Dataform(){
     );
 }
 
-default export Dataform;
+ export default Dataform;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const function Button(){
+function Button(){
 
     return(
-
+        <></>
     );
 }
 
