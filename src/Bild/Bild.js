@@ -1,8 +1,54 @@
-import React ,{useState} from 'react';
+import React ,{useState, useRef} from 'react';
 
 
 
-class Bild extends React.Component{
+ function useInput(initialValue=''){
+    const [value, setValue]=useState('');
+
+    const sendChange=(event)=>{
+        setValue(event.target.value);
+    };
+
+    return [value, sendChange];
+}
+
+function Bild(){
+
+    const [name, setName]=useInput('');
+    const [surname, setSurname]=useInput('');
+    const [age, setAge]=useInput('');
+    const surnameInput=useRef();
+
+    const sendClick=()=>console.log('React butt..');
+    const sendFocusClick=()=>{
+        surnameInput.current.focus();
+        surnameInput.current.value='Kowalski';
+        surnameInput.current.style.border='#f00 1px solid';
+    }
+    const sendForm=(event)=>{
+        event.preventDefault();
+    }
+
+    return(
+        <form onSubmit={ sendForm }>
+                <div>
+                    <input type="text" name="name" placeholder="Name" onChange={ setName } />
+                </div>
+                <div>
+                    <input type="text" ref={ surnameInput } name="surname" placeholder="Surname" onChange={ setSurname } />
+                </div>
+                <div>
+                    <input type="text" name="age" placeholder="Age" onChange={ setAge } />
+                </div>
+                <button type="submit" onClick={ sendClick }>Send</button>
+                <button type="submit" onClick={ sendFocusClick }>Focus</button>
+        </form>
+    );
+} 
+
+
+
+/* class Bild extends React.Component{
     state={
         name:'',
         surname:'',
@@ -49,47 +95,7 @@ class Bild extends React.Component{
     }
         
 } 
-
-
-
-
-/* function useInput(initialValue=''){
-    const [value, setValue]=useState('');
-
-    const sendChange=(event)=>{
-        setValue(event.target.value);
-    };
-
-    return [value, sendChange];
-}
-
-function Bild(){
-
-    const [name, setName]=useInput('');
-    const [surname, setSurname]=useInput('');
-    const [age, setAge]=useInput('');
-
-
-    const sendClick=()=>console.log('React butt..');
-    const sendForm=(event)=>{
-        event.preventDefault();
-    }
-
-    return(
-        <form onSubmit={ sendForm }>
-                <div>
-                    <input type="text" name="name" placeholder="Name" onChange={ setName } />
-                </div>
-                <div>
-                    <input type="text" name="surname" placeholder="Surname" onChange={ setSurname } />
-                </div>
-                <div>
-                    <input type="text" name="age" placeholder="Age" onChange={ setAge } />
-                </div>
-                <button type="submit" onClick={ sendClick }>Send</button>
-        </form>
-    );
-} */
+ */
 
 
 
