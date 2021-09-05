@@ -1,102 +1,45 @@
-import React ,{useState, useRef} from 'react';
+import React, { useState } from 'react';
 
-
-
- function useInput(initialValue=''){
-    const [value, setValue]=useState('');
-
-    const sendChange=(event)=>{
-        setValue(event.target.value);
-    };
-
-    return [value, sendChange];
-}
-
-function Bild(){
-
-    const [name, setName]=useInput('');
-    const [surname, setSurname]=useInput('');
-    const [age, setAge]=useInput('');
-    const surnameInput=useRef();
-
-    const sendClick=()=>console.log('React butt..');
-    const sendFocusClick=()=>{
-        surnameInput.current.focus();
-        surnameInput.current.value='Kowalski';
-        surnameInput.current.style.border='#f00 1px solid';
-    }
-    const sendForm=(event)=>{
-        event.preventDefault();
-    }
-
-    return(
-        <form onSubmit={ sendForm }>
-                <div>
-                    <input type="text" name="name" placeholder="Name" onChange={ setName } />
-                </div>
-                <div>
-                    <input type="text" ref={ surnameInput } name="surname" placeholder="Surname" onChange={ setSurname } />
-                </div>
-                <div>
-                    <input type="text" name="age" placeholder="Age" onChange={ setAge } />
-                </div>
-                <button type="submit" onClick={ sendClick }>Send</button>
-                <button type="submit" onClick={ sendFocusClick }>Focus</button>
-        </form>
-    );
-} 
-
-
-
-/* class Bild extends React.Component{
+class Bild extends React.Component {
     state={
-        name:'',
-        surname:'',
-        age:''
+        netto:0,
+        gratuity:0,
+        brutto:0
     }
-    constructor(props){
-        super(props);
-        this.supernameInput =React.createRef();
+    sendNetto=(event)=>{
+        this.setState({netto:event.target.value});
+    }
+    sendINput=(event)=>{
+        this.setState({gratuity:event.target.value});
     }
     sendForm=(event) =>{
         event.preventDefault();
     }
-    sendClick=(event)=>{
-        console.log("React bott...");
-
+    sendBrutto=(event)=>{
+        this.setState({brutto:(this.state.netto*this.state.gratuity).toFixed(2)})
     }
-    sendChange=(event)=>{
-        //const keyName= event.target.name;
-        this.setState({ [event.target.name ] : event.target.value});
-    }
-    sendFocus=()=>{
-        this.supernameInput.current.focus();
-        this.supernameInput.current.value='Kowalski';
-        this.supernameInput.current.style.border= '#f00 1px solid';
-    }
-
-    render() {
-    
+    render(){
         return(
-            <form onSubmit={ this.sendForm }>
-                <div>
-                    <input type="text" name="name" placeholder="Name" onChange={ this.sendChange } />
-                </div>
-                <div>
-                    <input type="text" ref={this.supernameInput} name="surname" placeholder="Surname" onChange={ this.sendChange } />
-                </div>
-                <div>
-                    <input type="text" name="age" placeholder="Age" onChange={ this.sendChange } />
-                </div>
-                <button type="submit" onClick={ this.sendClick }>Send</button>
-                <button type="button" onClick={ this.sendFocus }>Focus</button>
-            </form>
-            );
+            <div>
+                <form onSubmit={this.sendForm}>
+                    <div><h5>Podaj Kwote:</h5>
+                        <input type="number" name="netto" placeholder="netto" onClick={this.sendNetto}></input>
+                    </div>
+                    <div><h6>napiwek:
+                        <select  onClick={this.sendINput}>
+                            <option value='0.05' type="number" name="gratuity">5%</option>
+                            <option value='0.10' type="number" name="gratuity">10%</option>
+                            <option value='0.15' type="number" name="gratuity">15%</option>
+                            <option value='0.20' type="number" name="gratuity">20%</option>
+                        </select>
+                    </h6></div>
+                    <div>
+                        <button type="button" onClick={this.sendBrutto} name="brutto">Przelicz</button>
+                    </div>
+                </form>
+            </div>
+        )
     }
-        
-} 
- */
+}
 
-
-
-export default Bild; 
+export default Bild;
