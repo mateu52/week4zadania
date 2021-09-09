@@ -3,11 +3,15 @@ import React, {useState, useRef} from 'react';
 function useCheck(initialValue){
     const [value, setValue]=useState(initialValue);
 
+    const reset = () => {
+        setValue(initialValue);
+    }
+
     const sendChange=(event)=>{
         setValue(event.target.value);
     };
 
-    return [value, sendChange];
+    return [value, sendChange, reset];
 }
 
 
@@ -18,13 +22,15 @@ function Dataform(){
     const offBio = useRef();
     const offGender = useRef();
     const offCheck = useRef();
+    const checkboxMessage = useRef();
+    const genderMessage =useRef();
 
-    const [name, setName] =useState('');
-    const [email, setEmail] =useState('-');
-    const [bio, setBio] =useState('-');
-    const [gender, setGender] =useCheck('');
+    const [name, setName, resetName] =useCheck("");
+    const [email, setEmail, resetEmail] =useCheck("");
+    const [bio, setBio, resetBio] =useCheck('');
+    const [gender, setGender, resetGender] =useCheck('');
     const [reguls, setReguls] =useState(false);
-    const [submit, setSubmit] =useState('-');
+    //const [submit, setSubmit] =useState('');
     const [radio1, setRadio1] =useState(false);
     const [radio2, setRadio2] =useState(false);
 
@@ -41,6 +47,9 @@ function Dataform(){
         setRadio1(false);
         setRadio2(true);
     };
+    const onReguls=()=>{
+        setReguls(true);
+    }
 
     const sendSubmit=(event)=>{
         if(offName.current.value===''){
@@ -66,26 +75,64 @@ function Dataform(){
         }
         if(gender ===""){
             offGender.current.style.border = "2px solid red";
+            genderMessage.current.textContent="Podaj płeć";
         }
         else{
             offGender.current.style.border='none';
         }
         if (reguls === false){
             offCheck.current.style.border = "2px solid red";
+            checkboxMessage.current.textContent =
+            "Potwierdź zapoznanie się z regulaminem!!";
         }
         else{
             offCheck.current.style.border='none';
         }
-    }
+        if(
+            name !== '' &&
+            email !== '' &&
+            bio !== '' &&
+            (radio1 || radio2) ===true &&
+            reguls === true 
+        ){
+            alert("Dziekujemy za wysłanie");
+            resetName('');
+            resetEmail('');
+            resetBio('');
+            resetGender("");
+            setRadio1(false);
+            setRadio2(false);
+            setReguls(false);
+        }
+    };
 
     return(
         <form onSubmit={sendForm}>
             <div>
-                <input name="name" placeholder="imie"  ref={offName} onClick={setName}  ></input>
+                <input
+                        placeholder="imie"  
+                        type="text"
+                        value={name}
+                        ref={offName} 
+                        onChange={setName}  >
+                        </input>
             </div><div>
-                <input name="email" placeholder="email" ref={offEmail} onClick={setEmail} ></input>
+                <input
+                        placeholder="email" 
+                        type="text"
+                        value={email}
+                        ref={offEmail} 
+                        onChange={setEmail} >
+                        </input>
             </div><div>
-                <textarea name="bio" onClick={setBio} ref={offBio} ></textarea>
+                <textarea 
+                        onChange={setBio} 
+                        ref={offBio} 
+                        value={bio}
+                        type="text"
+                        placeholder="BIO"
+                        >
+                </textarea>
             </div>
             <div ref={offGender}>
                 <label>
@@ -108,14 +155,16 @@ function Dataform(){
                     />
                     mezczyzna
                 </label>
+                <p ref={genderMessage}></p>
             </div>
             <div>
                 <label ref={offCheck}><input 
                     type="checkbox" 
-                    Checked={reguls}
-                    onChange={setReguls}
+                    checked={reguls}
+                    onChange={onReguls}
                     />
                     regulamin</label>
+                    <p ref={checkboxMessage} ></p>
             </div><div>
                 <button type="button" 
                     name="submit" 
