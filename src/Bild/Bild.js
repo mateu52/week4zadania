@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Bild(){
+/* function Bild(){
     const [form, sendForm] = useState('');
     const [netto, sendNetto] = useState('');
     const [input, sendInput] = useState('');
@@ -26,9 +26,9 @@ function Bild(){
             </form>
         </div>
     )
-}
+} */
 
-/* class Bild extends React.Component {
+ class Bild extends React.Component {
     state={
         netto:0,
         gratuity:0,
@@ -69,5 +69,5 @@ function Bild(){
         )
     }
 }
- */
+ 
 export default Bild;

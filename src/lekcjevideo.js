@@ -1,7 +1,7 @@
 import React ,{useState, useRef} from 'react';
 
 
-/* 
+
  function useInput(initialValue=''){
     const [value, setValue]=useState('');
 
@@ -44,7 +44,7 @@ function Bild(){
                 <button type="submit" onClick={ sendFocusClick }>Focus</button>
         </form>
     );
-}  */
+}  
 
 
 
