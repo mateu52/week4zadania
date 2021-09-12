@@ -6,7 +6,7 @@ import ModDataform from './ModDataForm/ModDataForm';
 function App() {
   return (
      //<Bild />
-    <ModDataform />
+    //<ModDataform />
   );
 }
 
