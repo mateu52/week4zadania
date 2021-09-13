@@ -11,16 +11,30 @@ const Income=[{
     category:""
 }];
 
-const offPoint= useRef();
-const offName= useRef();
-const offAmount=useRef();
-const offCategory=useRef();
+function useInitCheck(initialVal){
+    const [value, setValue]= useState(initialVal);
+
+    const sendChange=(event)=>{
+        setValue(event.target.value);
+    }
+    const reset=()=>{
+        setValue(initialVal);
+    }
+
+    return [value, sendChange, reset]
+}
 
 function Expense(){
+
+    const offPoint= useRef();
+    const offName= useRef();
+    const offAmount=useRef();
+    const offCategory=useRef();
+
     const [radio1, setRadio1] = useState(false);
     const [radio2, setRadio2] = useState(false);
-    const [name, setName] =useRef('')
-    const [number, setNumber]= useState('';
+    const [name, setName] =useInitCheck('')
+    const [number, setNumber]= useInitCheck('');
 
     const handleRadio1=()=>{
         setRadio1(true);
@@ -60,6 +74,7 @@ function Expense(){
                         ref={offName}
                         type="text"
                         value={name}
+                        onChange={setName}
                     />
                 </div>
                 <div>
@@ -67,6 +82,7 @@ function Expense(){
                         ref={offAmount}
                         type="number"
                         value={number}
+                        onChange={setNumber}
                     />
                 </div>
                 <div>
@@ -83,6 +99,7 @@ function Expense(){
                     onClick={sendCalc}
                     >Przelicz</button>
                 </div>
+
             </>
         
     );
