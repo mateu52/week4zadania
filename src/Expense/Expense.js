@@ -1,15 +1,6 @@
 import React, {useState, useRef } from 'react';
 
-const Expens=[{
-    name:"",
-    amount:"",
-    category:""
-}];
-const Income=[{
-    name:"",
-    amount:"",
-    category:""
-}];
+
 
 function useInitCheck(initialVal){
     const [value, setValue]= useState(initialVal);
@@ -30,11 +21,12 @@ function Expense(){
     const offName= useRef();
     const offAmount=useRef();
     const offCategory=useRef();
+    const offNameMess=useRef();
 
     const [radio1, setRadio1] = useState(false);
     const [radio2, setRadio2] = useState(false);
-    const [name, setName] =useInitCheck('')
-    const [number, setNumber]= useInitCheck('');
+    const [name, setName, resetName] =useInitCheck('')
+    const [number, setNumber, resetNumber]= useInitCheck('');
 
     const handleRadio1=()=>{
         setRadio1(true);
@@ -45,9 +37,49 @@ function Expense(){
         setRadio2(true);
     }
 
-    const sendCalc=(event)=>{
+    const Expens=[{
+        id:"1",
+        name:"radio",
+        amount:"60",
+        category:"audio"
+        },
+        {
+        id:"2",
+        name:"glowniki",
+        amount:"150",
+        category:"audio"
+        },
+        {
+        id:"3",
+        name:"kable",
+        amount:"10",
+        category:"audio"
+        }];
+    
+    const Income=[{
+        id:"1",
+        name:"wyplata",
+        amount:"2000",
+        category:"etat"
+    }];
 
+    const sendAdd=(event)=>{
+        return name;
     }
+
+    const sendCalc=(event)=>{
+        
+        if(offName.current.value === ''){
+            offName.current.value="Podaj imie";
+        }
+        else{
+            //offName.current.value="ok";
+        }
+        if(name !==''){
+            resetName('');
+        }
+    }
+
 
     return(
             <>
@@ -88,16 +120,27 @@ function Expense(){
                 <div>
                     <select name="category">
                         <option value="zakupy">zakupy</option>
-                        <option value="zakupy">warszat</option>
-                        <option value="zakupy">zoologiczny</option>
-                        <option value="zakupy">paliwo</option>
+                        <option value="warszat">warszat</option>
+                        <option value="zoologiczny">zoologiczny</option>
+                        <option value="paliwo">paliwo</option>
                     </select>
                 </div>
                 <div>
                     <button 
                     type="submit"
                     onClick={sendCalc}
-                    >Przelicz</button>
+                    >Przelicz{sendAdd}</button>
+                </div>
+                <div>
+                    <p>
+                        {Expens.map(( e)=>{ return  [e.name, e.amount, e.category].join(", ")+" + " })}
+                    </p>
+                    <p>
+                        {Income.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
+                    </p>
+                    <p>
+                       {Expens.view()}
+                    </p>
                 </div>
 
             </>
