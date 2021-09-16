@@ -1,5 +1,5 @@
 import React, {useState, useRef } from 'react';
-
+import Select from 'react-select';
 
 
 function useInitCheck(initialVal){
@@ -12,7 +12,7 @@ function useInitCheck(initialVal){
         setValue(initialVal);
     }
 
-    return [value, sendChange, reset]
+    return [value, sendChange, reset];
 }
 
 function Expense(){
@@ -22,11 +22,14 @@ function Expense(){
     const offAmount=useRef();
     const offCategory=useRef();
     const offNameMess=useRef();
+    const offType=useRef();
 
     const [radio1, setRadio1] = useState(false);
     const [radio2, setRadio2] = useState(false);
     const [name, setName, resetName] =useInitCheck('')
     const [number, setNumber, resetNumber]= useInitCheck('');
+    const [type, setType, resetType]=useInitCheck('');
+    const [categ, setCategory] =useState('');
 
     const handleRadio1=()=>{
         setRadio1(true);
@@ -36,6 +39,13 @@ function Expense(){
         setRadio1(false);
         setRadio2(true);
     }
+
+    const options = [
+        { value:"zakupy", label:"zakupy"},
+        { value:"warszat", label:"warszat"},
+        { value:"zoologiczny", label:"zoologiczny"},
+        { value:"paliwo", label:"paliwo"}
+    ]
 
     const Expens=[{
         id:"1",
@@ -77,19 +87,22 @@ function Expense(){
         }
         if(name !==''){
             resetName('');
+            resetNumber('');
+            resetType('')
         }
     }
 
 
     return(
             <>
-                <div>
+                <div ref={offType}>
                     <label>
                         <input
                             type="radio"
                             value="Expense"
                             checked={radio1}
                             onClick={handleRadio1}
+                            onChange={setType}
                         />wydatek
                     </label>
                     <label>
@@ -98,6 +111,7 @@ function Expense(){
                             value="Income"
                             checked={radio2}
                             onClick={handleRadio2}
+                            onChange={setType}
                         />przychów
                     </label>
                 </div>
@@ -118,11 +132,16 @@ function Expense(){
                     />
                 </div>
                 <div>
-                    <select name="category">
-                        <option value="zakupy">zakupy</option>
-                        <option value="warszat">warszat</option>
-                        <option value="zoologiczny">zoologiczny</option>
-                        <option value="paliwo">paliwo</option>
+                    <select ref={offCategory}  
+                        onChange={(e) => {
+                            const selectedCategory=e.target.value;
+                            setCategory(selectedCategory);
+                        }}
+                    >
+                        <option value="zakupy" >zakupy</option>
+                        <option value="warszat" >warszat</option>
+                        <option value="zoologiczny" >zoologiczny</option>
+                        <option value="paliwo" >paliwo</option>
                     </select>
                 </div>
                 <div>
@@ -139,7 +158,7 @@ function Expense(){
                         {Income.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
                     </p>
                     <p>
-                       {Expens.view()}
+                       {name},{number}zł,{type},{categ}
                     </p>
                 </div>
 
