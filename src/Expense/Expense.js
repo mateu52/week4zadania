@@ -1,61 +1,24 @@
 import React, {useState, useRef } from 'react';
 import Select from 'react-select';
+import dataList from "./data.json" 
+import { useForm } from "react-hook-form";
 
-
-function useInitCheck(initialVal){
-    const [value, setValue]= useState(initialVal);
-
-    const sendChange=(event)=>{
-        setValue(event.target.value);
-    }
-    const reset=()=>{
-        setValue(initialVal);
-    }
-
-    return [value, sendChange, reset];
-}
 
 function Expense(){
 
-    const offPoint= useRef();
-    const offName= useRef();
-    const offAmount=useRef();
-    const offCategory=useRef();
-    const offNameMess=useRef();
-    const offType=useRef();
-
-    const [radio1, setRadio1] = useState(false);
-    const [radio2, setRadio2] = useState(false);
-    const [name, setName, resetName] =useInitCheck('')
-    const [number, setNumber, resetNumber]= useInitCheck('');
-    const [type, setType, resetType]=useInitCheck('');
-    const [categ, setCategory] =useState('');
-
-    const handleRadio1=()=>{
-        setRadio1(true);
-        setRadio2(false);
-    }
-    const handleRadio2=()=>{
-        setRadio1(false);
-        setRadio2(true);
-    }
-
-    const options = [
-        { value:"zakupy", label:"zakupy"},
-        { value:"warszat", label:"warszat"},
-        { value:"zoologiczny", label:"zoologiczny"},
-        { value:"paliwo", label:"paliwo"}
-    ]
+    const {register, handleSubmit} = useForm();
+    const sendForm = (d) =>
+        alert(JSON.stringify(d));
 
     const Expens=[{
         id:"1",
         name:"radio",
-        amount:"60",
+        amount:"80",
         category:"audio"
         },
         {
         id:"2",
-        name:"glowniki",
+        name:"glosniki",
         amount:"150",
         category:"audio"
         },
@@ -73,70 +36,62 @@ function Expense(){
         category:"etat"
     }];
 
-    const sendAdd=(event)=>{
-        return name;
+
+    const handleRadio1=()=>{
+        setRadio1(true);
+        setRadio2(false);
+    }
+    const handleRadio2=()=>{
+        setRadio1(false);
+        setRadio2(true);
     }
 
-    const sendCalc=(event)=>{
-        
-        if(offName.current.value === ''){
-            offName.current.value="Podaj imie";
-        }
-        else{
-            //offName.current.value="ok";
-        }
-        if(name !==''){
-            resetName('');
-            resetNumber('');
-            resetType('')
+    const options = [
+        { value:"zakupy", label:"zakupy"},
+        { value:"warszat", label:"warszat"},
+        { value:"zoologiczny", label:"zoologiczny"},
+        { value:"paliwo", label:"paliwo"}
+    ]
+
+     const sendAdd=(event)=>{
+        if(offName.current.value !=""){
+            console.log("aha");
         }
     }
 
 
     return(
-            <>
-                <div ref={offType}>
+            <form onSubmit={handleSubmit(sendForm)}>
+                <div>
                     <label>
                         <input
+                            {...register("wydatek")}
                             type="radio"
-                            value="Expense"
                             checked={radio1}
                             onClick={handleRadio1}
-                            onChange={setType}
                         />wydatek
                     </label>
                     <label>
                         <input
+                            {...register("przychód")}
                             type="radio"
-                            value="Income"
                             checked={radio2}
                             onClick={handleRadio2}
-                            onChange={setType}
                         />przychów
                     </label>
                 </div>
                 <div>
                     <input
-                        ref={offName}
-                        type="text"
-                        value={name}
-                        onChange={setName}
+                        {...register("name")}
                     />
                 </div>
                 <div>
                     <input
-                        ref={offAmount}
-                        type="number"
-                        value={number}
-                        onChange={setNumber}
+                        {...register("amound")}
                     />
                 </div>
                 <div>
-                    <select ref={offCategory}  
-                        onChange={(e) => {
-                            const selectedCategory=e.target.value;
-                            setCategory(selectedCategory);
-                        }}
+                    <select{...register("category")}
                     >
                         <option value="zakupy" >zakupy</option>
                         <option value="warszat" >warszat</option>
@@ -145,10 +100,10 @@ function Expense(){
                     </select>
                 </div>
                 <div>
-                    <button 
+                    <button
                     type="submit"
-                    onClick={sendCalc}
-                    >Przelicz{sendAdd}</button>
+                    onClick={sendAdd}
+                    >Przelicz</button>
                 </div>
                 <div>
                     <p>
@@ -158,11 +113,36 @@ function Expense(){
                         {Income.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
                     </p>
                     <p>
-                       {name},{number}zł,{type},{categ}
+                       {/* {name},{number}zł,{type},{categ} */}
+                       {/* {dataList.map((detail, index) => {
+                           return <div>
+                                    <p>_________</p>
+                                    <p>{detail.type}</p>
+                                    <p>{detail.category}</p>
+                                    <p>{detail.name}</p>
+                                    <p>{detail.amount}</p>
+                                    <p>................</p>
+                               </div>
+                       })} */}
+                    </p>
+                    <p>
+                        <h3>wydatki</h3>
+                        {expens.map((det, index)=>(
+                            <li key={index}>
+                                <span>{det.name}</span>: {det.amount}{" "}
+                            </li>
+                        ))}
+                        <h3>przychody</h3>
+                        {income.map((det, index)=>(
+                            <li key={index}>
+                                <span>{det.name}</span>: {det.amount}{" "}
+                            </li>
+                        ))}
+                        {offType}
                     </p>
                 </div>
 
-            </>
+            </form>
         
     );
 }

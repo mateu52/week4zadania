@@ -1,0 +1,30 @@
+[
+    {
+    "id":"1",
+    "type": "Wydatek",
+    "name":"radio",
+    "amount":"60",
+    "category":"audio"
+    },
+    {
+    "id":"2",
+    "type": "Wydatek",
+    "name":"glowniki",
+    "amount":"150",
+    "category":"audio"
+    },
+    {
+    "id":"3",
+    "type": "Wydatek",
+    "name":"kable",
+    "amount":"10",
+    "category":"audio"
+    },
+    {
+    "id":"4",
+    "type": "Przychód",
+    "name":"wyplata",
+    "amount":"2000",
+    "category":"etat"
+    }
+]
