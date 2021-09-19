@@ -44,6 +44,10 @@ function Expense(){
                 amount:d.amount,
                 category:d.category
             };
+            dataList.push(expenseInit);
+            console.log(dataList);
+            setRadio1(false);
+            setRadio2(false);
         }
     }
         
@@ -124,6 +128,9 @@ function Expense(){
                         {Income.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
                     </p>
                     <p>
+                        {dataList.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
+                    </p>
+                    <p>
                         <h3>wydatki</h3>
                         {Expens.map((det, index)=>(
                             <li key={index}>
@@ -132,6 +139,14 @@ function Expense(){
                         ))}
                         <h3>przychody</h3>
                         {Income.map((det, index)=>(
+                            <li key={index}>
+                                <span>{det.name}</span>: {det.amount}{" "}
+                            </li>
+                        ))}
+                    </p>
+                    <p>
+                    <h3>przychody</h3>
+                        {dataList.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
                             </li>
