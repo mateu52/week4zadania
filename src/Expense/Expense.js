@@ -1,15 +1,11 @@
-import React, {useState, useRef } from 'react';
-import Select from 'react-select';
+import React, {useState} from 'react';
 import dataList from "./data.json" 
 import { useForm } from "react-hook-form";
-
+import { v4 as uuid4 } from "uuid";
 
 function Expense(){
 
-    const {register, handleSubmit} = useForm();
-    const sendForm = (d) =>
-        alert(JSON.stringify(d));
-
+    
     const Expens=[{
         id:"1",
         name:"radio",
@@ -36,14 +32,32 @@ function Expense(){
         category:"etat"
     }];
 
+    const [expens, setExpense] =useState(Expens);
+
+    const {register, handleSubmit} = useForm();
+    const sendForm = (d) =>{
+        if(radio1==="wydatek"){
+            const expenseInit={
+                id: uuid4(),
+                //type:radio1
+                name:d.name,
+                amount:d.amount,
+                category:d.category
+            };
+        }
+    }
+        
+
+    const [radio1, setRadio1] =useState(false);
+    const [radio2, setRadio2] =useState(false);
 
     const handleRadio1=()=>{
-        setRadio1(true);
+        setRadio1("wydatek");
         setRadio2(false);
     }
     const handleRadio2=()=>{
         setRadio1(false);
-        setRadio2(true);
+        setRadio2("przychód");
     }
 
     const options = [
@@ -53,13 +67,7 @@ function Expense(){
         { value:"paliwo", label:"paliwo"}
     ]
 
-     const sendAdd=(event)=>{
-        if(offName.current.value !=""){
-            console.log("aha");
-        }
-    }
-
-
+     
     return(
             <form onSubmit={handleSubmit(sendForm)}>
                 <div>
@@ -82,12 +90,16 @@ function Expense(){
                 </div>
                 <div>
                     <input
-                        {...register("name")}
+                        {...register("name",{
+                            //required:true
+                        })}
                     />
                 </div>
                 <div>
                     <input
-                        {...register("amound")}
+                        {...register("amount",{
+                            //required:true,
+                        })}
                     />
                 </div>
                 <div>
@@ -101,8 +113,7 @@ function Expense(){
                 </div>
                 <div>
                     <button
-                    type="submit"
-                    onClick={sendAdd}
+                    type="submit" value="submit"
                     >Przelicz</button>
                 </div>
                 <div>
@@ -113,32 +124,18 @@ function Expense(){
                         {Income.map((e)=>{ return [e.name, e.amount, e.category].join(", ") })}
                     </p>
                     <p>
-                       {/* {name},{number}zł,{type},{categ} */}
-                       {/* {dataList.map((detail, index) => {
-                           return <div>
-                                    <p>_________</p>
-                                    <p>{detail.type}</p>
-                                    <p>{detail.category}</p>
-                                    <p>{detail.name}</p>
-                                    <p>{detail.amount}</p>
-                                    <p>................</p>
-                               </div>
-                       })} */}
-                    </p>
-                    <p>
                         <h3>wydatki</h3>
-                        {expens.map((det, index)=>(
+                        {Expens.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
                             </li>
                         ))}
                         <h3>przychody</h3>
-                        {income.map((det, index)=>(
+                        {Income.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
                             </li>
                         ))}
-                        {offType}
                     </p>
                 </div>
 
