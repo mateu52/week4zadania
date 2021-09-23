@@ -19,12 +19,5 @@
     "name":"kable",
     "amount":"10",
     "category":"audio"
-    },
-    {
-    "id":"4",
-    "type": "Przychód",
-    "name":"wyplata",
-    "amount":"2000",
-    "category":"etat"
     }
 ]
