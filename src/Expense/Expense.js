@@ -29,13 +29,16 @@ const sumFun=(initVal)=>{
 
 function Expense(){
 
-    const [expens, setExpense] =useState(expensData);
-    const [income, setIncome] =useState(incomeData);
-    const [expensIn, setExpenseIn] =useState([]);
+    //const [expens, setExpense] =useState(expensData);
+    //const [income, setIncome] =useState(incomeData);
+    const [expens, setExpense] =useState([]);
+    const [income, setIncome] =useState([]);
+    
+    //const [expensIn, setExpenseIn] =useState([]);
     const [cost, handleSetCost, resetCost]=useInput("");
-    const [licz, setLicz]=useState("");
-    
-    
+    const [licz, setLicz]=useState(0);
+    //const [];
+
     const {register, handleSubmit} = useForm();
     
 
@@ -46,14 +49,14 @@ function Expense(){
                 id: uuid4(),
                 type:radio1,
                 name:d.name,
-                amount:parseInt(d.amount),
+                amount:parseInt(d.amount,10),
                 category:d.category
             };
            // sumFun(d.amount);
-            setExpenseIn([...expensIn+ d.amount]);
-            expensData.push(expenseInit);
+            //setExpenseIn([...expensIn+ d.amount]);
+            //expensData.push(expenseInit);
             setLicz(licz+expenseInit.amount);
-            sumFun(d);
+            //setExpense([expens, expenseInit]);
             console.log(expensData);
             setRadio1(false);
             setRadio2(false);
@@ -65,7 +68,7 @@ function Expense(){
                 amount:d.amount,
                 category:d.category
             };
-            incomeData.push(incomeInit);
+            //incomeData.push(incomeInit);
             console.log(incomeData);
             setRadio1(false);
             setRadio2(false);
