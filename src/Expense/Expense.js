@@ -3,6 +3,34 @@ import expensData from "./expensData.json";
 import incomeData from "./incomeData.json";
 import { useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
+import Licznik from "./Licznik";
+import style from "./style.css"
+
+const styles= {
+    color:'red'
+}
+const styles1= {
+    color:'green'
+}
+
+
+
+const cssLicz=(initCount)=>{
+    if (initCount>0){
+        return(
+            
+            <div style={styles1}>
+                {initCount}
+            </div>
+        )}
+    if (initCount<0){
+        return(
+            <div style={styles}>
+                {initCount}
+            </div>
+        )
+    }
+}
 
 
 const useInput = (initialValue)=>{
@@ -28,7 +56,7 @@ const sumFun=(initVal)=>{
 
 
 function Expense(){
-
+    //var data =JSON.parse(expensData);
     //const [expens, setExpense] =useState(expensData);
     //const [income, setIncome] =useState(incomeData);
     const [expens, setExpense] =useState([]);
@@ -49,12 +77,12 @@ function Expense(){
                 id: uuid4(),
                 type:radio1,
                 name:d.name,
-                amount:parseInt(d.amount,10),
+                amount:parseInt(-d.amount,10),
                 category:d.category
             };
            // sumFun(d.amount);
             //setExpenseIn([...expensIn+ d.amount]);
-            //expensData.push(expenseInit);
+            expensData.push(expenseInit);
             setLicz(licz+expenseInit.amount);
             //setExpense([expens, expenseInit]);
             console.log(expensData);
@@ -65,10 +93,12 @@ function Expense(){
                 id: uuid4(),
                 type:radio2,
                 name:d.name,
-                amount:d.amount,
+                amount:parseInt(d.amount,10),
                 category:d.category
             };
             //incomeData.push(incomeInit);
+            incomeData.push(incomeInit);
+            setLicz(licz+incomeInit.amount);
             console.log(incomeData);
             setRadio1(false);
             setRadio2(false);
@@ -148,15 +178,18 @@ function Expense(){
                 </div>
                 <div>
                     <p>
-                        {licz}
+                        
+                        {/* <Licznik /> */}
+                         <h5>suma wydatków: {cssLicz(licz)}  </h5>
+                        
                         <h3>wydatki</h3>
-                        {expens.map((det, index)=>(
+                        {expensData.map((det, index)=>(
                             <li key={index} >
                                 <span>{det.name}</span>: {det.amount}{" "}
                             </li>
                         ))}
                         <h3>przychody</h3>
-                        {income.map((det, index)=>(
+                        {incomeData.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
                             </li>
