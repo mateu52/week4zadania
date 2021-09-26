@@ -4,14 +4,18 @@ import expenseData from './expensData.json';
 
 
 
-function Licznik(){
-    //const [licz, setLicz]=useInit(0);
-    var total = JSON.parse(expenseData);
-    return(
-        <>
-            <h1>hello</h1>
-        </>
-    )
+function Licznik(prop){
+  expenseData.map((det, index)=>
+    console.log(prop)
+  )
 }
 
 export default Licznik;
+
+/* 
+{incomeData.map((det, index)=>(
+    <li key={index}>
+        <span>{det.name}</span>: {det.amount}{" "}
+        <button>-</button>
+    </li>
+))} */

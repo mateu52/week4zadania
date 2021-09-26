@@ -18,7 +18,6 @@ const styles1= {
 const cssLicz=(initCount)=>{
     if (initCount>0){
         return(
-            
             <div style={styles1}>
                 {initCount}
             </div>
@@ -61,17 +60,15 @@ function Expense(){
     //const [income, setIncome] =useState(incomeData);
     const [expens, setExpense] =useState([]);
     const [income, setIncome] =useState([]);
-    
+
     //const [expensIn, setExpenseIn] =useState([]);
     const [cost, handleSetCost, resetCost]=useInput("");
     const [licz, setLicz]=useState(0);
     //const [];
 
     const {register, handleSubmit} = useForm();
-    
 
     const sendForm = (d) =>{
-        
         if(radio1==="wydatek"){
             const expenseInit={
                 id: uuid4(),
@@ -116,6 +113,8 @@ function Expense(){
         setRadio1(false);
         setRadio2("przychód");
     }
+
+   
 
     const options = [
         { value:"zakupy", label:"zakupy"},
@@ -186,12 +185,14 @@ function Expense(){
                         {expensData.map((det, index)=>(
                             <li key={index} >
                                 <span>{det.name}</span>: {det.amount}{" "}
+                                
                             </li>
                         ))}
                         <h3>przychody</h3>
                         {incomeData.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
+                                
                             </li>
                         ))}
                     </p>
