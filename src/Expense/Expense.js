@@ -3,8 +3,6 @@ import expensData from "./expensData.json";
 import incomeData from "./incomeData.json";
 import { useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
-import Licznik from "./Licznik";
-import style from "./style.css"
 
 const styles= {
     color:'red'
@@ -55,16 +53,9 @@ const sumFun=(initVal)=>{
 
 
 function Expense(){
-    //var data =JSON.parse(expensData);
-    //const [expens, setExpense] =useState(expensData);
-    //const [income, setIncome] =useState(incomeData);
-    const [expens, setExpense] =useState([]);
-    const [income, setIncome] =useState([]);
 
-    //const [expensIn, setExpenseIn] =useState([]);
     const [cost, handleSetCost, resetCost]=useInput("");
     const [licz, setLicz]=useState(0);
-    //const [];
 
     const {register, handleSubmit} = useForm();
 
@@ -77,11 +68,8 @@ function Expense(){
                 amount:parseInt(-d.amount,10),
                 category:d.category
             };
-           // sumFun(d.amount);
-            //setExpenseIn([...expensIn+ d.amount]);
             expensData.push(expenseInit);
             setLicz(licz+expenseInit.amount);
-            //setExpense([expens, expenseInit]);
             console.log(expensData);
             setRadio1(false);
             setRadio2(false);
@@ -93,7 +81,6 @@ function Expense(){
                 amount:parseInt(d.amount,10),
                 category:d.category
             };
-            //incomeData.push(incomeInit);
             incomeData.push(incomeInit);
             setLicz(licz+incomeInit.amount);
             console.log(incomeData);
@@ -113,8 +100,6 @@ function Expense(){
         setRadio1(false);
         setRadio2("przychód");
     }
-
-   
 
     const options = [
         { value:"zakupy", label:"zakupy"},
@@ -158,12 +143,10 @@ function Expense(){
                         value={cost}
                         onChange={handleSetCost}
                         type="number"
-                        
                     />
                 </div>
                 <div>
-                    <select{...register("category")}
-                    >
+                    <select {...register("category")} >
                         <option value="zakupy" >zakupy</option>
                         <option value="warszat" >warszat</option>
                         <option value="zoologiczny" >zoologiczny</option>
@@ -177,29 +160,22 @@ function Expense(){
                 </div>
                 <div>
                     <p>
-                        
-                        {/* <Licznik /> */}
                          <h5>suma wydatków: {cssLicz(licz)}  </h5>
-                        
                         <h3>wydatki</h3>
                         {expensData.map((det, index)=>(
                             <li key={index} >
                                 <span>{det.name}</span>: {det.amount}{" "}
-                                
                             </li>
                         ))}
                         <h3>przychody</h3>
                         {incomeData.map((det, index)=>(
                             <li key={index}>
                                 <span>{det.name}</span>: {det.amount}{" "}
-                                
                             </li>
                         ))}
                     </p>
                 </div>
-
             </form>
-        
     );
 }
 

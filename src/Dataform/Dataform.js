@@ -30,7 +30,6 @@ function Dataform(){
     const [bio, setBio, resetBio] =useCheck('');
     const [gender, setGender, resetGender] =useCheck('');
     const [reguls, setReguls] =useState(false);
-    //const [submit, setSubmit] =useState('');
     const [radio1, setRadio1] =useState(false);
     const [radio2, setRadio2] =useState(false);
 
@@ -93,7 +92,7 @@ function Dataform(){
             email !== '' &&
             bio !== '' &&
             (radio1 || radio2) ===true &&
-            reguls === true 
+            reguls === true
         ){
             alert("Dziekujemy za wysłanie");
             resetName('');
@@ -110,24 +109,24 @@ function Dataform(){
         <form onSubmit={sendForm}>
             <div>
                 <input
-                        placeholder="imie"  
+                        placeholder="imie"
                         type="text"
                         value={name}
-                        ref={offName} 
+                        ref={offName}
                         onChange={setName}  >
                         </input>
             </div><div>
                 <input
-                        placeholder="email" 
+                        placeholder="email"
                         type="text"
                         value={email}
-                        ref={offEmail} 
+                        ref={offEmail}
                         onChange={setEmail} >
                         </input>
             </div><div>
-                <textarea 
-                        onChange={setBio} 
-                        ref={offBio} 
+                <textarea
+                        onChange={setBio}
+                        ref={offBio}
                         value={bio}
                         type="text"
                         placeholder="BIO"
@@ -136,21 +135,21 @@ function Dataform(){
             </div>
             <div ref={offGender}>
                 <label>
-                    <input 
-                            type="radio" 
+                    <input
+                            type="radio"
                             value="female"
                             checked={radio1}
-                            onClick={handleRadio1} 
+                            onClick={handleRadio1}
                             onChange={setGender}
                     />
                     kobieta
                 </label>
                 <label>
-                    <input 
-                            type="radio" 
+                    <input
+                            type="radio"
                             value="male"
                             checked={radio2}
-                            onClick={handleRadio2} 
+                            onClick={handleRadio2}
                             onChange={setGender}
                     />
                     mezczyzna
@@ -158,16 +157,16 @@ function Dataform(){
                 <p ref={genderMessage}></p>
             </div>
             <div>
-                <label ref={offCheck}><input 
-                    type="checkbox" 
+                <label ref={offCheck}><input
+                    type="checkbox"
                     checked={reguls}
                     onChange={onReguls}
                     />
                     regulamin</label>
                     <p ref={checkboxMessage} ></p>
             </div><div>
-                <button type="button" 
-                    name="submit" 
+                <button type="button"
+                    name="submit"
                     onClick={sendSubmit} >
                 Wyślij
                 </button>

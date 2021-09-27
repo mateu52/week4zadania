@@ -12,7 +12,7 @@ function Button(){
         backgroundColor:"white",
         color:"red"
     }
-    
+
     const over={
         backgroundColor:"red",
         color:"white"
@@ -29,7 +29,7 @@ function Button(){
 
     return(
         <div style={styles} >
-            <button 
+            <button
                     ref={offFocus}
                     onMouseLeave={leaveB}
                     onMouseOver={overB}
